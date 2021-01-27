@@ -1,5 +1,6 @@
 import React from 'react'
 import { Categories, PizzaBlock, SortPopup } from '../components';
+
 const Main = ({pizza}) => {
     console.log(pizza)
     return (
@@ -16,12 +17,13 @@ const Main = ({pizza}) => {
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
             {
-                pizza && pizza.map((obj)=>( <PizzaBlock key={obj.id} {...obj}/>))
+                pizza && pizza.map((obj)=>( <PizzaBlock key={obj.id} {...obj} />))
             }
             
       </div>
       </div>
     )
 }
+
 
 export default Main
