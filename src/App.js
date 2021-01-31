@@ -10,8 +10,8 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get('http://localhost:3000/bd.json').then(({ data }) => {
-      dispatch(setPizza(data.pizzas));
+    axios.get('http://localhost:3001/pizzas').then(({ data }) => {
+      dispatch(setPizza(data));
     });
   }, []);
 
