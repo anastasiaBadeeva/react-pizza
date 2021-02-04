@@ -1,27 +1,40 @@
-import React ,{useCallback} from 'react'
+import React ,{useCallback,useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Categories, PizzaBlock, SortPopup } from '../components';
+import { getPizza } from '../redux/actions/pizza';
 import {setCategory} from '../redux/actions/filters'
+import LoadingBlock from '../components/PizzaBlock/LoadingBlock';
 const categoryName =['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 const sortItems =[{name : 'популярности', type: 'popular'}, {name : 'цене', type: 'price'}, {name : 'алфавиту', type: 'alphabet'}]
 const Main = () => {
   const dispatch = useDispatch()
-  const onSelectCategory = useCallback(
-    (index) => {
-      dispatch(setCategory(index));
-      console.log(index)
-    },
-    [],
-  )
   const { pizza } = useSelector(({ pizza }) => {
     return {
       pizza: pizza.items,
     };
   });
+  const { isLoading } = useSelector(({ pizza }) => {
+    return {
+      isLoading: pizza.isLoading,
+    };
+  });
+  const { category, sortBy } = useSelector(({filter})=>  filter);
+  useEffect(() => {
+    dispatch(getPizza());
+  }, [category,sortBy]);
+  const onSelectCategory = useCallback(
+    (index) => {
+      dispatch(setCategory(index));
+    },
+    [],
+  )
+
+  console.log(category,sortBy)
     return (
         <div className="container">
         <div className="content__top">
           <Categories
+            activeCategory={category}
             onClickItem={onSelectCategory}
             items={categoryName}
           />
@@ -30,7 +43,7 @@ const Main = () => {
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
             {
-                pizza && pizza.map((obj)=>( <PizzaBlock key={obj.id} {...obj} />))
+                isLoading ? pizza.map((obj)=>( <PizzaBlock key={obj.id} {...obj}  />)) : Array(12).fill(0).map((_, index )=> <LoadingBlock key={index}/>) 
             }
             
       </div>
