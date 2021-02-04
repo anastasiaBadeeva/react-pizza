@@ -5,7 +5,7 @@ import { getPizza } from '../redux/actions/pizza';
 import {setCategory,setSortBy} from '../redux/actions/filters'
 import LoadingBlock from '../components/PizzaBlock/LoadingBlock';
 const categoryName =['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-const sortItems =[{name : 'популярности', type: 'popular'}, {name : 'цене', type: 'price'}, {name : 'алфавиту', type: 'alphabet'}]
+const sortItems =[{name : 'популярности', type: 'popular',  order: 'desc'}, {name : 'цене', type: 'price',  order: 'desc'}, {name : 'алфавиту', type: 'name',  order: 'asc'}]
 const Main = () => {
   const dispatch = useDispatch()
   const { pizza } = useSelector(({ pizza }) => {
@@ -42,7 +42,7 @@ const Main = () => {
             onClickItem={onSelectCategory}
             items={categoryName}
           />
-          <SortPopup items={sortItems} activItem={sortBy} setActivItem={onSelectSortBy} />
+          <SortPopup items={sortItems} activItem={sortBy.type} setActivItem={onSelectSortBy} />
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
