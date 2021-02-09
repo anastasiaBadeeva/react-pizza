@@ -8,8 +8,9 @@ const SortPopup = React.memo(({items,activItem,setActivItem}) => {
    setVisiblePopUp(!visiblePopUp)
  }
 
- const handleOutSideClick = (e) =>{
-     if(!e.path.includes(sortRef.current)){
+ const handleOutSideClick = (event) =>{
+   const path = event.path || (event.composedPath && event.composedPath());
+     if(!path.includes(sortRef.current)){
       setVisiblePopUp(false)
      }
  }
