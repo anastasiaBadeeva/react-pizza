@@ -4,6 +4,9 @@ import {CartItem}  from "../components/index"
 
 const Cart = () => {
   const {items,totalPrice,totalCount} = useSelector(({cart}) => cart)
+  const groupPizzas = Object.keys(items).map((key)=>{
+    return items[key].items[0]
+  })
     return (
         <div className="container container--cart">
         <div className="cart">
@@ -26,7 +29,10 @@ const Cart = () => {
             </div>
           </div>
           <div className="content__items">
-           <CartItem name ="пеперони" type="тонкое" size={26} price ={720}/>
+            {
+              groupPizzas.map(obj => <CartItem name ={obj.name} type={obj.type} size={obj.size} price={items[obj.id].totalPrice} totalCount={items[obj.id].items.length}/>)
+            }
+           {/* <CartItem name ="пеперони" type="тонкое" size={26} price ={720}/> */}
           <div className="cart__bottom">
             <div className="cart__bottom-details">
               <span> Всего пицц: <b>{totalCount} шт.</b> </span>

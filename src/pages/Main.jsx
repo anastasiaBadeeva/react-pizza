@@ -58,7 +58,7 @@ const Main = () => {
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
             {
-                isLoading ? pizza.map((obj)=>( <PizzaBlock addedCart={cart[obj.id] && cart[obj.id].length} onClickAddPizza={onClickAddPizzaToCart} key={obj.id} {...obj}  />)) : Array(12).fill(0).map((_, index )=> <LoadingBlock key={index}/>) 
+                isLoading ? pizza.map((obj)=>( <PizzaBlock addedCart={cart[obj.id] && cart[obj.id].items.length} onClickAddPizza={onClickAddPizzaToCart} key={obj.id} {...obj}  />)) : Array(12).fill(0).map((_, index )=> <LoadingBlock key={index}/>) 
             }
             
       </div>
