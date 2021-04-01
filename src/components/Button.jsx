@@ -1,10 +1,10 @@
 import React from 'react'
 import classNames from 'classnames'
 
- const Button = ({classname,outline,onClick,children}) =>{
+ const Button = ({classname,outline,onClick,children,circle}) =>{
     return <button
     onClick= {onClick}
-     className = {classNames('button', classname, {'button--outline' : outline})}>
+     className = {classNames('button', classname, {'button--outline' : outline},{'button--circle' : circle})}>
         {children}
         </button>
 }

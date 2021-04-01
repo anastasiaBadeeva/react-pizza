@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {CartItem}  from "../components/index";
-import {clearCart} from "../redux/actions/cart";
+import {clearCart, removeCartItem} from "../redux/actions/cart";
 import cartEmptyImg from "../assets/img/empty-cart.png"
 import { Link } from 'react-router-dom';
 const Cart = () => {
@@ -13,6 +13,12 @@ const Cart = () => {
   const onClearCart = () => {
     if(window.confirm("Вы действительно хотите очистить корзину?")){
       dispatch(clearCart());
+    }
+    
+  }
+  const onRemoveCartItem = (id) => {
+    if(window.confirm("Вы действительно удалить пиццу?")){
+      dispatch(removeCartItem(id));
     }
     
   }
@@ -39,7 +45,7 @@ const Cart = () => {
           </div>
           <div className="content__items">
             {
-              groupPizzas.map(obj => <CartItem name ={obj.name} type={obj.type} size={obj.size} price={items[obj.id].totalPrice} totalCount={items[obj.id].items.length}/>)
+              groupPizzas.map(obj => <CartItem onRemove={onRemoveCartItem} id={obj.id} name ={obj.name} type={obj.type} size={obj.size} price={items[obj.id].totalPrice} totalCount={items[obj.id].items.length}/>)
             }
            {/* <CartItem name ="пеперони" type="тонкое" size={26} price ={720}/> */}
           <div className="cart__bottom">
