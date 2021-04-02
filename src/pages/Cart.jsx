@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {CartItem}  from "../components/index";
-import {clearCart, removeCartItem} from "../redux/actions/cart";
+import {clearCart, removeCartItem, plusCartItem,minusCartItem} from "../redux/actions/cart";
 import cartEmptyImg from "../assets/img/empty-cart.png"
 import { Link } from 'react-router-dom';
 const Cart = () => {
@@ -20,6 +20,18 @@ const Cart = () => {
     if(window.confirm("Вы действительно удалить пиццу?")){
       dispatch(removeCartItem(id));
     }
+    
+  }
+  const onPlusCartItem = (id) => {
+    dispatch(plusCartItem(id))
+    
+  }
+  const onMinusCartItem = (id) => {
+    dispatch(minusCartItem(id))
+    
+  }
+  const onClickOrder = () => {
+    console.log("Your order:", items )
     
   }
     return (
@@ -45,7 +57,7 @@ const Cart = () => {
           </div>
           <div className="content__items">
             {
-              groupPizzas.map(obj => <CartItem onRemove={onRemoveCartItem} id={obj.id} name ={obj.name} type={obj.type} size={obj.size} price={items[obj.id].totalPrice} totalCount={items[obj.id].items.length}/>)
+              groupPizzas.map(obj => <CartItem key={obj.id} onPlusCartItem={onPlusCartItem} onMinusCartItem={onMinusCartItem} onRemove={onRemoveCartItem} id={obj.id} name ={obj.name} imageUrl={obj.imageUrl} type={obj.type} size={obj.size} price={items[obj.id].totalPrice} totalCount={items[obj.id].items.length}/>)
             }
            {/* <CartItem name ="пеперони" type="тонкое" size={26} price ={720}/> */}
           <div className="cart__bottom">
@@ -54,14 +66,13 @@ const Cart = () => {
               <span> Сумма заказа: <b>{totalPrice}</b> </span>
             </div>
             <div className="cart__bottom-buttons">
-              <a href="/" className="button button--outline button--add go-back-btn">
-                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <Link to="/" className="button button--outline button--add go-back-btn">
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7 13L1 6.93015L6.86175 1" stroke="#D3D3D3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
-
-                <span>Вернуться назад</span>
-              </a>
-              <div className="button pay-btn">
+        <span>Вернуться назад</span>
+      </Link>
+              <div onClick={onClickOrder} className="button pay-btn">
                 <span>Оплатить сейчас</span>
               </div>
             </div>
@@ -69,7 +80,7 @@ const Cart = () => {
         </div>
       </div> 
       :<div className="cart cart--empty">
-      <h2>Корзина пустая <icon>😕</icon></h2>
+      <h2>Корзина пустая <i>😕</i></h2>
       <p>
         Вероятней всего, вы не заказывали ещё пиццу.<br />
         Для того, чтобы заказать пиццу, перейди на главную страницу.
