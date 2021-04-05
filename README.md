@@ -10,10 +10,10 @@ In the project directory, you can run:
 
 Stack:
 
-ReactJS + хуки
-React Router
-Redux
-Redux thunk
-json-server
-Axios
-classnames
+- ReactJS + хуки
+- React Router
+- Redux
+- Redux thunk
+- json-server
+- Axios
+- classnames
